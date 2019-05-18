@@ -15,9 +15,8 @@ namespace SalaoAPI.Controllers
     [Route("api/[controller]")]
     public class AgendaController : Controller
     {
-        public string connectionString = "Server=tcp:salaoapi.database.windows.net;Database=SalaoAPI;User ID =api@salaoapi.database.windows.net;Password=Salao123@;Trusted_Connection=False;Encrypt=True;";
-
-
+        //public string connectionString = "Server=tcp:salaoapi.database.windows.net;Database=SalaoAPI;User ID =api@salaoapi.database.windows.net;Password=Salao123@;Trusted_Connection=False;Encrypt=True;";
+        public string connectionString = "Server = (localdb)\v11.0;Integrated Security = true";
         // GET: api/<controller>
         [HttpGet]
         public ActionResult<List<Agenda>> Get()

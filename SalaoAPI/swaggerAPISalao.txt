@@ -1,0 +1,754 @@
+swagger: "2.0"
+info:
+  description: "Aplicativo de gerencia de agenda de salão de beleza."
+  version: "1.0.0"
+  title: "API Salão"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "salaoapi.swagger.io"
+basePath: "/v2"
+tags:
+- name: "Endereco"
+  description: "Cadastro de endereço."
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "Agenda"
+  description: "Marcação de serviços."
+- name: "Fornecedor"
+  description: "Cadastro de fornecedores."
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+
+
+  /servico:
+    post:
+      tags:
+      - "Servico"
+      summary: "Cadastro dos serviços."
+      description: ""
+      operationId: "addServico"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Service object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Servico"
+      responses:
+        405:
+          description: "Invalid input"
+    put:
+      tags:
+      - "Servico"
+      summary: "Update an existing service"
+      description: "Cadastro de servico."
+      operationId: "updateService"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Service object that needs to be updated to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Servico"
+      responses:
+        405:
+          description: "Invalid input"
+    get:
+      tags:
+      - "Servico"
+      summary: "Find all Services"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "findService"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+  /servico/{ServicoId}:
+    get:
+      tags:
+      - "Servico"
+      summary: "Find service by ID"
+      description: "Returns a single service"
+      operationId: "getServicebyId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "ServicoId"
+        in: "path"
+        description: "ID of service to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Servico"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Service not found"
+    delete:
+      tags:
+      - "Servico"
+      summary: "Deletes a service"
+      description: ""
+      operationId: "deleteService"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "ServicoId"
+        in: "path"
+        description: "Service id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Service not found"
+  /Agenda:
+    post:
+      tags:
+      - "Agenda"
+      summary: "Cadastro das agendas."
+      description: ""
+      operationId: "addAgenda"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Schedule object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Agenda"
+      responses:
+        405:
+          description: "Invalid input"
+    put:
+      tags:
+      - "Agenda"
+      summary: "Update an existing Schedule"
+      description: "Cadastro de Agenda."
+      operationId: "updateSchedule"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Schedule object that needs to be updated to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Agenda"
+      responses:
+        405:
+          description: "Invalid input"
+    get:
+      tags:
+      - "Agenda"
+      summary: "Find all Schedules"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "findSchedule"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+  /Agenda/{AgendaId}:
+    get:
+      tags:
+      - "Agenda"
+      summary: "Find Schedule by ID"
+      description: "Returns a single Schedule"
+      operationId: "getSchedulebyId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "AgendaId"
+        in: "path"
+        description: "ID of Schedule to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Agenda"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Schedule not found"
+    delete:
+      tags:
+      - "Agenda"
+      summary: "Deletes a Schedule"
+      description: ""
+      operationId: "deleteSchedule"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "AgendaId"
+        in: "path"
+        description: "Schedule id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Schedule not found"  
+  /endereco:
+    post:
+      tags:
+      - "Endereco"
+      summary: "Cadastro dos enderecos."
+      description: ""
+      operationId: "addEndereco"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Address object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Endereco"
+      responses:
+        405:
+          description: "Invalid input"
+    put:
+      tags:
+      - "Endereco"
+      summary: "Update an existing service"
+      description: "Cadastro de endereco."
+      operationId: "updateAddress"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Address object that needs to be updated to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Endereco"
+      responses:
+        405:
+          description: "Invalid input"
+    get:
+      tags:
+      - "Endereco"
+      summary: "Find all Addresss"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "findAddress"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+  /endereco/{EnderecoId}:
+    get:
+      tags:
+      - "Endereco"
+      summary: "Find service by ID"
+      description: "Returns a single service"
+      operationId: "getAddressbyId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "EnderecoId"
+        in: "path"
+        description: "ID of service to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Endereco"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Address not found"
+    delete:
+      tags:
+      - "Endereco"
+      summary: "Deletes a service"
+      description: ""
+      operationId: "deleteAddress"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "EnderecoId"
+        in: "path"
+        description: "Address id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Address not found"
+  /fornecedor:
+    post:
+      tags:
+      - "Fornecedor"
+      summary: "Cadastro dos fornecedores."
+      description: ""
+      operationId: "addFornecedor"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Provider object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Fornecedor"
+      responses:
+        405:
+          description: "Invalid input"
+    put:
+      tags:
+      - "Fornecedor"
+      summary: "Update an existing service"
+      description: "Cadastro de fornecedor."
+      operationId: "updateProvider"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Provider object that needs to be updated to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Fornecedor"
+      responses:
+        405:
+          description: "Invalid input"
+    get:
+      tags:
+      - "Fornecedor"
+      summary: "Find all Providers"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "findProvider"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+  /fornecedor/{FornecedorId}:
+    get:
+      tags:
+      - "Fornecedor"
+      summary: "Find service by ID"
+      description: "Returns a single service"
+      operationId: "getProviderbyId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "FornecedorId"
+        in: "path"
+        description: "ID of service to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Fornecedor"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Provider not found"
+    delete:
+      tags:
+      - "Fornecedor"
+      summary: "Deletes a service"
+      description: ""
+      operationId: "deleteProvider"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "FornecedorId"
+        in: "path"
+        description: "Provider id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Provider not found"  
+  /usuario:
+    post:
+      tags:
+      - "Usuario"
+      summary: "Cadastro dos usuarios."
+      description: ""
+      operationId: "addUsuario"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Usuario"
+      responses:
+        405:
+          description: "Invalid input"
+    put:
+      tags:
+      - "Usuario"
+      summary: "Update an existing service"
+      description: "Cadastro de usuario."
+      operationId: "updateUser"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User object that needs to be updated to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Usuario"
+      responses:
+        405:
+          description: "Invalid input"
+    get:
+      tags:
+      - "Usuario"
+      summary: "Find all Users"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "findUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+  /usuario/{UsuarioId}:
+    get:
+      tags:
+      - "Usuario"
+      summary: "Find service by ID"
+      description: "Returns a single service"
+      operationId: "getUserbyId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "UsuarioId"
+        in: "path"
+        description: "ID of service to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Usuario"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "User not found"
+    delete:
+      tags:
+      - "Usuario"
+      summary: "Deletes a service"
+      description: ""
+      operationId: "deleteUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "UsuarioId"
+        in: "path"
+        description: "User id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "User not found"
+  
+definitions:
+  Endereco:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      
+      CEP:
+        type: "string"
+        example: "doggie"
+        
+      Estado:
+        type: "string"
+        example: "doggie"
+        
+      Cidade:
+        type: "string"
+        example: "doggie"
+        
+      Bairro:
+        type: "string"
+        example: "doggie"
+        
+      Rua:
+        type: "string"
+        example: "doggie"
+        
+      Numero:
+        type: "string"
+        example: "doggie"
+        
+      
+      Pais:
+        type: "string"
+        example: "doggie"
+      
+    xml:
+      name: "Address"
+  Servico:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      
+      Fornecedor:
+        type: "string"
+        example: "doggie"
+        
+      Descricao:
+        type: "string"
+        example: "doggie"
+    
+    xml:
+      name: "Service"
+  Agenda:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "integer64"
+      
+      ServicoId:
+        type: "string"
+        example: "doggie"
+        
+      TipoAgenda:
+        type: "string"
+        example: "doggie"
+        
+      DataInicio:
+        type: "string"
+        example: "doggie"
+        
+      DataFim:
+        type: "string"
+        example: "doggie"
+        
+      AbreSegunda:
+        type: "string"
+        example: "doggie"
+        
+      AbreTerca:
+        type: "integer"
+        example: "1"
+        
+      AbreQuarta:
+        type: "integer"
+        example: "1"
+
+      AbreQuintegera:
+        type: "integer"
+        example: "1"
+         
+      AbreSexta:
+        type: "integer"
+        example: "1"
+        
+      AbreSabado:
+        type: "integer"
+        example: "1"
+        
+      AbreDomingo:
+        type: "integer"
+        example: "1"
+ 
+    xml:
+      name: "Schedule"
+  Fornecedor:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      
+      Endereco:
+        type: "string"
+        example: "doggie"
+        
+      NomeFantasia:
+        type: "string"
+        example: "doggie"
+        
+      Email:
+        type: "string"
+        example: "doggie"
+        
+      CNPJ:
+        type: "string"
+        example: "doggie"
+        
+      Senha:
+        type: "string"
+        example: "doggie"
+
+    xml:
+      name: "Provider"
+  Usuario:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      
+      Nome:
+        type: "string"
+        example: "doggie"
+        
+      CPF:
+        type: "string"
+        example: "000.000.000-00"
+        
+      DataNascimento:
+        type: "string"
+        example: "20190101"
+        
+      Sexo:
+        type: "string"
+        example: "m"
+        
+      Email:
+        type: "string"
+        example: "doggie"
+        
+      Senha:
+        type: "string"
+        example: "doggie"
+
+    xml:
+      name: "User"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
