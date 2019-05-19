@@ -14,8 +14,8 @@ namespace SalaoAPI.Controllers
     [Route("api/[controller]")]
     public class EnderecoController : Controller
     {
-      public string connectionString = "Server=tcp:salaoapi.database.windows.net;Database=SalaoAPI;User ID =api@salaoapi.database.windows.net;Password=Salao123@;Trusted_Connection=False;Encrypt=True;";
-
+        //public string connectionString = "Server=tcp:salaoapi.database.windows.net;Database=SalaoAPI;User ID =api@salaoapi.database.windows.net;Password=Salao123@;Trusted_Connection=False;Encrypt=True;";
+        public string connectionString = "Server=JESSICA\\SQLEXPRESS;Database=Salao;Integrated Security=yes;Uid=auth_windows;";
 
         // GET: api/<controller>
         [HttpGet]

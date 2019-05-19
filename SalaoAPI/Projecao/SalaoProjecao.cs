@@ -12,5 +12,6 @@ namespace SalaoAPI.Projecao
         public string nome { get; set; }
         public string salao { get; set; }
         public string servico { get; set; }
+        public string id { get; set; }
     }
 }
