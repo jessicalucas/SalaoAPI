@@ -5,21 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using SalaoAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using SalaoAPI.Projecao;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SalaoAPI.Controllers
 {
-    
+
     [ApiController]
     [Route("api/[controller]")]
     public class AgendaController : Controller
     {
         //public string connectionString = "Server=tcp:salaoapi.database.windows.net;Database=SalaoAPI;User ID =api@salaoapi.database.windows.net;Password=Salao123@;Trusted_Connection=False;Encrypt=True;";
-        public string connectionString = "Server = (localdb)\v11.0;Integrated Security = true";
+        public string connectionString = "Server=JESSICA\\SQLEXPRESS;Database=Salao;Integrated Security=yes;Uid=auth_windows;";
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<Agenda>> Get()
+        public ActionResult<List<AgendaProjecao>> Get()
         {
             try
             {
@@ -27,28 +28,31 @@ namespace SalaoAPI.Controllers
 
                 sqlConn.Open();
 
-                SqlCommand cmd = new SqlCommand("Select * from AGE_AGENDA", sqlConn);
+                SqlCommand cmd = new SqlCommand(@"select 
+                                                  car.CARDATA dia,
+                                                  car.CARHORAINICIO + ' - ' + car.CARHORAFIM horaio,
+                                                  usu.USUNOME nome,
+                                                  sos.SOSDESCRICAO servico,
+                                                  forn.FORNOMEFANTASIA Salao
+                                                  FROM CAR_CarrinhoDeCompras car
+                                                  inner join USU_Usuario usu on usu.USUIDENTIFICADOR = car.USUIDENTIFICADOR
+                                                  inner join LSA_LigServicoSAgenda lsa on lsa.LSAIDENTIFICADOR = car.LSAIDENTIFICADOR
+                                                  inner join SOS_ServicosOferecidosSalao sos on sos.SOSIDENTIFICADOR = lsa.SOSIDENTIFICADOR
+                                                  inner join FOR_Fornecedor forn on forn.FORIDENTIFICADOR = lsa.FORIDENTIFICADOR ", sqlConn);
 
                 SqlDataReader dr = cmd.ExecuteReader();
 
-                List<Agenda> result = new List<Agenda>();
+                List<AgendaProjecao> result = new List<AgendaProjecao>();
 
                 while (dr.Read())
                 {
-                    Agenda agenda = new Agenda()
+                    AgendaProjecao agenda = new AgendaProjecao()
                     {
-                        Id = (int)dr["AGEIDENTIFICADOR"],
-                        ServicoId = (int)dr["SOSIDENTIFICADOR"],
-                        TipoAgenda = (int)dr["AGETIPOAGENDA"],
-                        DataInicio = (DateTime)dr["AGEDATAINICIO"],
-                        DataFim = (DateTime)dr["AGEDATAFIM"],
-                        AbreSegunda = (int)dr["AGEABRESEG"],
-                        AbreTerca = (int)dr["AGEABRETER"],
-                        AbreQuarta = (int)dr["AGEABREQUA"],
-                        AbreQuinta = (int)dr["AGEABREQUI"],
-                        AbreSexta = (int)dr["AGEABRESEX"],
-                        AbreSabado = (int)dr["AGEABRESAB"],
-                        AbreDomingo = (int)dr["AGEABREDOM"]
+                        dia = ((DateTime)dr["dia"]).ToShortDateString(),
+                        horario = (string)dr["horaio"],
+                        nome = (string)dr["nome"],
+                        servico = (string)dr["servico"],
+                        salao = (string)dr["Salao"],
 
                     };
                     result.Add(agenda);
