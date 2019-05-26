@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SalaoAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SalaoAPI.Controllers
@@ -63,7 +64,7 @@ namespace SalaoAPI.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public ActionResult<Usuario> Get(int id)
+        public ActionResult<Usuario> Get(string id,string email, string senha)
         {
             try
             {
@@ -71,7 +72,7 @@ namespace SalaoAPI.Controllers
 
                 sqlConn.Open();
 
-                SqlCommand cmd = new SqlCommand("Select * from USU_Usuario where USUIDENTIFICADOR = " + id, sqlConn);
+                SqlCommand cmd = new SqlCommand("Select * from USU_Usuario where USUEMAIL = '" + email + "' and USUSENHA = '" + senha + "'", sqlConn);
 
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())
@@ -100,6 +101,7 @@ namespace SalaoAPI.Controllers
 
         // POST api/<controller>
         [HttpPost]
+        [Route("usuario: Usuario")]
         public string Post(Usuario usuario)
         {
             try
